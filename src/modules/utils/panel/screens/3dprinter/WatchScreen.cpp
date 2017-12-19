@@ -275,7 +275,7 @@ const char *WatchScreen::get_status()
         return THEPANEL->getMessage().c_str();
 
     if (THEKERNEL->is_halted())
-        return "Printer HALTED.\rReset power.";
+        return "Printer HALTED. Reset power.";
 
     if (THEPANEL->is_suspended())
         return "Suspended";
