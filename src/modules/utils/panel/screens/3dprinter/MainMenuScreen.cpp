@@ -48,37 +48,6 @@ void MainMenuScreen::setupConfigureScreen()
     auto mvs= new ModifyValuesScreen(true); // delete itself on exit
     mvs->set_parent(this);
 
-    // acceleration
-    mvs->addMenuItem("def Acceleration", // menu name
-        []() -> float { return THEROBOT->get_default_acceleration(); }, // getter
-        [this](float acc) { send_gcode("M204", 'S', acc); }, // setter
-        10.0F, // increment
-        1.0F, // Min
-        10000.0F // Max
-        );
-
-    // steps/mm
-    mvs->addMenuItem("X steps/mm",
-        []() -> float { return THEROBOT->actuators[0]->get_steps_per_mm(); },
-        [](float v) { THEROBOT->actuators[0]->change_steps_per_mm(v); },
-        0.1F,
-        1.0F
-        );
-
-    mvs->addMenuItem("Y steps/mm",
-        []() -> float { return THEROBOT->actuators[1]->get_steps_per_mm(); },
-        [](float v) { THEROBOT->actuators[1]->change_steps_per_mm(v); },
-        0.1F,
-        1.0F
-        );
-
-    mvs->addMenuItem("Z steps/mm",
-        []() -> float { return THEROBOT->actuators[2]->get_steps_per_mm(); },
-        [](float v) { THEROBOT->actuators[2]->change_steps_per_mm(v); },
-        0.1F,
-        1.0F
-        );
-
     mvs->addMenuItem("Z Home Ofs",
         []() -> float { float rd[3]; PublicData::get_value( endstops_checksum, home_offset_checksum, rd ); return rd[2]; },
         [this](float v) { send_gcode("M206", 'Z', v); },
@@ -100,7 +69,7 @@ void MainMenuScreen::setupConfigureScreen()
 void MainMenuScreen::on_enter()
 {
     THEPANEL->enter_menu_mode();
-    THEPANEL->setup_menu(7);
+    THEPANEL->setup_menu(9);
     this->refresh_menu();
 }
 
@@ -117,13 +86,15 @@ void MainMenuScreen::on_refresh()
 void MainMenuScreen::display_menu_line(uint16_t line)
 {
     switch ( line ) {
-        case 0: THEPANEL->lcd->printf("Watch"); break;
-        case 1: if(THEKERNEL->is_halted()) THEPANEL->lcd->printf("Clear HALT"); else THEPANEL->lcd->printf(THEPANEL->is_playing() ? "Abort" : "Play"); break;
+        case 0: THEPANEL->lcd->printf("Info Screen"); break;
+        case 1: if(THEKERNEL->is_halted()) THEPANEL->lcd->printf("Clear HALT"); else THEPANEL->lcd->printf(THEPANEL->is_playing() ? "Abort Print" : "Print from SD Card"); break;
         case 2: THEPANEL->lcd->printf("Jog"); break;
         case 3: THEPANEL->lcd->printf("Prepare"); break;
-        case 4: THEPANEL->lcd->printf("Custom"); break;
-        case 5: THEPANEL->lcd->printf("Configure"); break;
-        case 6: THEPANEL->lcd->printf("Probe"); break;
+        case 4: THEPANEL->lcd->printf("Load filament"); break;
+        case 5: THEPANEL->lcd->printf("Unload filament"); break;
+        case 6: THEPANEL->lcd->printf("Custom"); break;
+        case 7: THEPANEL->lcd->printf("Settings"); break;
+        case 8: THEPANEL->lcd->printf("Calibration"); break;
     }
 }
 
@@ -139,9 +110,11 @@ void MainMenuScreen::clicked_menu_entry(uint16_t line)
              else THEPANEL->enter_screen(this->file_screen); break;
         case 2: THEPANEL->enter_screen(this->jog_screen     ); break;
         case 3: THEPANEL->enter_screen(this->prepare_screen ); break;
-        case 4: THEPANEL->enter_screen(THEPANEL->custom_screen ); break;
-        case 5: setupConfigureScreen(); break;
-        case 6: THEPANEL->enter_screen((new ProbeScreen())->set_parent(this)); break;
+        case 4: send_command("M84"); break;
+        case 5: send_command("M84"); break;
+        case 6: THEPANEL->enter_screen(THEPANEL->custom_screen ); break;
+        case 7: setupConfigureScreen(); break;
+        case 8: THEPANEL->enter_screen((new ProbeScreen())->set_parent(this)); break;
     }
 }
 
@@ -151,4 +124,3 @@ void MainMenuScreen::abort_playing()
     send_command("abort");
     THEPANEL->enter_screen(this->watch_screen);
 }
-

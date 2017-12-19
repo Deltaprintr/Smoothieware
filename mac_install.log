@@ -1,0 +1,8 @@
+Tue Dec 19 14:04:55 EST 2017 Starting /Users/shaischechter/Documents/Smoothieware/mac_install
+Tue Dec 19 14:04:55 EST 2017 Executing curl -L0 https://launchpad.net/gcc-arm-embedded/4.8/4.8-2014-q1-update/+download/gcc-arm-none-eabi-4_8-2014q1-20140314-mac.tar.bz2
+Tue Dec 19 14:05:10 EST 2017 Validating md5 signature of GNU Tools for ARM Embedded Processors
+Tue Dec 19 14:05:11 EST 2017 Executing tar xf /Users/shaischechter/Documents/Smoothieware/gcc-arm-none-eabi-4_8-2014q1-20140314-mac.tar.bz2
+Tue Dec 19 14:05:21 EST 2017 Executing mv /Users/shaischechter/Documents/Smoothieware/gcc-arm-none-eabi-4_8-2014q1 /Users/shaischechter/Documents/Smoothieware/gcc-arm-none-eabi
+Tue Dec 19 14:05:21 EST 2017 Executing cp /Users/shaischechter/Documents/Smoothieware/build/osx64/arm-none-eabi-gdb /Users/shaischechter/Documents/Smoothieware/build/osx64/arm-none-eabi-gdbtui /Users/shaischechter/Documents/Smoothieware/gcc-arm-none-eabi/bin/
+Tue Dec 19 14:05:22 EST 2017 Executing rm /Users/shaischechter/Documents/Smoothieware/gcc-arm-none-eabi-4_8-2014q1-20140314-mac.tar.bz2
+Tue Dec 19 14:05:22 EST 2017 Finished successfully
