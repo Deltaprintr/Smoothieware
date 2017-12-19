@@ -63,8 +63,9 @@ void ProbeScreen::display_menu_line(uint16_t line)
 {
     switch ( line ) {
         case 0: THEPANEL->lcd->printf("Back");  break;
-        case 1: THEPANEL->lcd->printf("Status");  break;
-        case 2: THEPANEL->lcd->printf("Z Probe");  break;
+        case 1: THEPANEL->lcd->printf("Check probe");  break;
+        case 2: THEPANEL->lcd->printf("Autolevel bed");  break;
+        case 3: THEPANEL->lcd->printf("Autotune hotend heater");  break;
     }
 }
 
@@ -75,6 +76,7 @@ void ProbeScreen::clicked_menu_entry(uint16_t line)
         case 0: THEPANEL->enter_screen(this->parent); return;
         case 1: this->do_status= true; this->tcnt= 1; break;
         case 2: this->do_probe= true; break;
+        case 3: send_command("M303 E0 S220"); break;
     }
 }
 

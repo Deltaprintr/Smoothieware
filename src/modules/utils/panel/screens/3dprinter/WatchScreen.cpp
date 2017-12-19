@@ -260,7 +260,7 @@ void WatchScreen::display_menu_line(uint16_t line)
                 THEPANEL->lcd->setCursor(12, line);
                 THEPANEL->lcd->printf("Z%7.2f", this->pos[2]);
             } else {
-                THEPANEL->lcd->printf("X%4d| Y%4d| Z%7.2f", (int)round(this->pos[0]), (int)round(this->pos[1]), this->pos[2]);
+                THEPANEL->lcd->printf("X%4d Y%4d Z%7.2f", (int)round(this->pos[0]), (int)round(this->pos[1]), this->pos[2]);
             }
             break;
         }
@@ -275,7 +275,7 @@ const char *WatchScreen::get_status()
         return THEPANEL->getMessage().c_str();
 
     if (THEKERNEL->is_halted())
-        return "Printer HALTED. Reset power.";
+        return "Printer HALTED.\rReset power.";
 
     if (THEPANEL->is_suspended())
         return "Suspended";

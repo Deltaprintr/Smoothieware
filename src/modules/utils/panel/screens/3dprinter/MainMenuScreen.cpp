@@ -93,8 +93,8 @@ void MainMenuScreen::display_menu_line(uint16_t line)
         case 4: THEPANEL->lcd->printf("Load filament"); break;
         case 5: THEPANEL->lcd->printf("Unload filament"); break;
         case 6: THEPANEL->lcd->printf("Custom"); break;
-        case 7: THEPANEL->lcd->printf("Settings"); break;
-        case 8: THEPANEL->lcd->printf("Calibration"); break;
+        case 7: THEPANEL->lcd->printf("Calibration"); break;
+        case 8: THEPANEL->lcd->printf("Settings"); break;
     }
 }
 
@@ -110,11 +110,11 @@ void MainMenuScreen::clicked_menu_entry(uint16_t line)
              else THEPANEL->enter_screen(this->file_screen); break;
         case 2: THEPANEL->enter_screen(this->jog_screen     ); break;
         case 3: THEPANEL->enter_screen(this->prepare_screen ); break;
-        case 4: send_command("M84"); break;
-        case 5: send_command("M84"); break;
+        case 4: send_command("G1 E600 F1200"); break;
+        case 5: send_command("G1 E-600 F1200"); break;
         case 6: THEPANEL->enter_screen(THEPANEL->custom_screen ); break;
-        case 7: setupConfigureScreen(); break;
-        case 8: THEPANEL->enter_screen((new ProbeScreen())->set_parent(this)); break;
+        case 7: THEPANEL->enter_screen((new ProbeScreen())->set_parent(this)); break;
+        case 8: setupConfigureScreen(); break;
     }
 }
 
