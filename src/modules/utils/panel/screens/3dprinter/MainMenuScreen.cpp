@@ -110,11 +110,19 @@ void MainMenuScreen::clicked_menu_entry(uint16_t line)
              else THEPANEL->enter_screen(this->file_screen); break;
         case 2: THEPANEL->enter_screen(this->jog_screen     ); break;
         case 3: THEPANEL->enter_screen(this->prepare_screen ); break;
+<<<<<<< HEAD
         case 4: send_command("G1 E600 F1200"); break;
         case 5: send_command("G1 E-600 F1200"); break;
         case 6: THEPANEL->enter_screen(THEPANEL->custom_screen ); break;
         case 7: THEPANEL->enter_screen((new ProbeScreen())->set_parent(this)); break;
         case 8: setupConfigureScreen(); break;
+=======
+        case 4: THEPANEL->enter_screen(THEPANEL->custom_screen ); break;
+        case 3: THEPANEL->enter_screen(this->load_filament_screen ); break;
+        case 3: THEPANEL->enter_screen(this->unload_filament_screen ); break;
+        case 5: setupConfigureScreen(); break;
+        case 6: THEPANEL->enter_screen((new ProbeScreen())->set_parent(this)); break;
+>>>>>>> origin/master
     }
 }
 
