@@ -275,7 +275,7 @@ const char *WatchScreen::get_status()
         return THEPANEL->getMessage().c_str();
 
     if (THEKERNEL->is_halted())
-        return "HALTED Reset or M999";
+        return "Printer HALTED. Reset power.";
 
     if (THEPANEL->is_suspended())
         return "Suspended";
@@ -288,7 +288,7 @@ const char *WatchScreen::get_status()
 
     const char *ip = get_network();
     if (ip == NULL) {
-        return "Smoothie ready";
+        return "Delta Go ready";
     } else {
         return ip;
     }

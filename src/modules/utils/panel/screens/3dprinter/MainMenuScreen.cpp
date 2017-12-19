@@ -100,7 +100,7 @@ void MainMenuScreen::setupConfigureScreen()
 void MainMenuScreen::on_enter()
 {
     THEPANEL->enter_menu_mode();
-    THEPANEL->setup_menu(7);
+    THEPANEL->setup_menu(9);
     this->refresh_menu();
 }
 
@@ -117,13 +117,15 @@ void MainMenuScreen::on_refresh()
 void MainMenuScreen::display_menu_line(uint16_t line)
 {
     switch ( line ) {
-        case 0: THEPANEL->lcd->printf("Watch"); break;
-        case 1: if(THEKERNEL->is_halted()) THEPANEL->lcd->printf("Clear HALT"); else THEPANEL->lcd->printf(THEPANEL->is_playing() ? "Abort" : "Play"); break;
+        case 0: THEPANEL->lcd->printf("Info Screen"); break;
+        case 1: if(THEKERNEL->is_halted()) THEPANEL->lcd->printf("Clear HALT"); else THEPANEL->lcd->printf(THEPANEL->is_playing() ? "Abort Print" : "Print from SD Card"); break;
         case 2: THEPANEL->lcd->printf("Jog"); break;
         case 3: THEPANEL->lcd->printf("Prepare"); break;
-        case 4: THEPANEL->lcd->printf("Custom"); break;
-        case 5: THEPANEL->lcd->printf("Configure"); break;
-        case 6: THEPANEL->lcd->printf("Probe"); break;
+        case 4: THEPANEL->lcd->printf("Load filament"); break;
+        case 5: THEPANEL->lcd->printf("Unload filament"); break;
+        case 6: THEPANEL->lcd->printf("Custom"); break;
+        case 7: THEPANEL->lcd->printf("Settings"); break;
+        case 8: THEPANEL->lcd->printf("Calibration"); break;
     }
 }
 
@@ -140,6 +142,8 @@ void MainMenuScreen::clicked_menu_entry(uint16_t line)
         case 2: THEPANEL->enter_screen(this->jog_screen     ); break;
         case 3: THEPANEL->enter_screen(this->prepare_screen ); break;
         case 4: THEPANEL->enter_screen(THEPANEL->custom_screen ); break;
+        case 3: THEPANEL->enter_screen(this->load_filament_screen ); break;
+        case 3: THEPANEL->enter_screen(this->unload_filament_screen ); break;
         case 5: setupConfigureScreen(); break;
         case 6: THEPANEL->enter_screen((new ProbeScreen())->set_parent(this)); break;
     }
@@ -151,4 +155,3 @@ void MainMenuScreen::abort_playing()
     send_command("abort");
     THEPANEL->enter_screen(this->watch_screen);
 }
-
